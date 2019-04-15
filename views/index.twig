@@ -3,6 +3,23 @@
 {% block body %}
   <h1>{{title}}</h1>
   <p>Welcome to {{title}}</p>
-  <p>{{ elem.username }}</p>
-  <p>{{ elem.email }}</p>
+  <p>{{ username }}</p>
+  <img src="{{ avatarUrl }}">
+
+
+  <form action="/traitementOrga">
+
+    <div>
+      <label for="githubId">Your Github ID</label>
+      <input type="text" name="username" id="githubId" value="{{ username }}" placeholder="Username" disabled>
+    </div>
+
+    <div>
+      <label for="inputOrga">Organisation</label>
+      <input type="text" name="organization" id="inputOrga" placeholder="My Organization">
+    </div>
+
+    <button type="submit">Submit</button>
+
+  </form>
 {% endblock %}

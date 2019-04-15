@@ -4,12 +4,14 @@ var process = require('process');
 var envConf = require('dotenv').config();
 var { getUserInfo } = require('../data/data');
 
+// API Auth Github
 var githubOAuth = require('github-oauth')({
   githubClient: process.env.GITHUB_KEY,
   githubSecret: process.env.GITHUB_SECRET,
   baseURL: process.env.adress,
   loginURI: '/auth/github',
-  callbackURI: '/auth/github/callback'
+  callbackURI: '/auth/github/callback',
+  scope: 'repo read:user'
 });
 
 function checkAuth(req,res,next) {
@@ -21,19 +23,17 @@ function checkAuth(req,res,next) {
 }
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', checkAuth, function(req, res, next) {
   let view = {
     username: "",
-    email: ""
+    avatarUrl: ""
   };
-  return getUserInfo(req.cookies.token).then((response) => {
+  getUserInfo(req.cookies.token).then((response) => {
     view.username = response.data.viewer.login;
-    view.email = response.data.viewer.email;
-    res.render('index', { title: 'Express', elem: view });
-    return;
+    view.avatarUrl = response.data.viewer.avatarUrl;
+    res.render('index', { title: 'Express', username: view.username, avatarUrl: view.avatarUrl });
   }).catch(() => {
-    res.render('index', { title: 'Express', elem: view });
-    return;
+    res.render('index', { title: 'Express', username: "", avatarUrl: "" });
   });
 });
 
@@ -52,7 +52,18 @@ githubOAuth.on('error', function(err) {
 githubOAuth.on('token', function(token, serverResponse) {
   console.log(token.access_token);
   serverResponse.cookie('token', token.access_token);
+  // ajouter le token en base et créer un ID associé
   serverResponse.redirect(`/`);
+});
+
+
+router.get('/traitementOrga', checkAuth, function(req,res) {
+  orga = req.query.organization;
+  username = req.query.username;
+  if (!orga) {
+    res.status(400).end('{"error" : orga parameter required!}')
+  }
+  traitement(req.cookies.token,orga,username);
 });
 
 module.exports = router;
