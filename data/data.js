@@ -86,11 +86,9 @@ async function traitement(githubToken,githubOrganization,githubId) {
     console.log(`Number of members: ${members.length}`);
 
     return { orgaInfos: orgaInfos, members: members };
-
+    
 
     async function getOrgaInfos() {
-        let result = [];
-
         const QUERY = gql`
             {
                 organization(login: "${githubOrganization}") {

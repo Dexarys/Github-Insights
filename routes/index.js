@@ -11,11 +11,13 @@ var githubOAuth = require('github-oauth')({
   baseURL: process.env.adress,
   loginURI: '/auth/github',
   callbackURI: '/auth/github/callback',
-  scope: 'repo read:user read:org'
+  scope: 'repo read:org read:user'
 });
 
+var scopes = "";
+
 function checkAuth(req,res,next) {
-  if (typeof req.cookies.token !== 'undefined') {
+  if (typeof req.cookies.token !== 'undefined' && scopes === "read:org,read:user,repo") {
     next();
   } else {
     res.redirect("/auth/github");
@@ -51,6 +53,8 @@ githubOAuth.on('error', function(err) {
 
 githubOAuth.on('token', function(token, serverResponse) {
   console.log(token.access_token);
+  console.log(token);
+  scopes = token.scope;
   serverResponse.cookie('token', token.access_token);
   // ajouter le token en base et créer un ID associé
   serverResponse.redirect(`/`);
