@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var process = require('process');
 var envConf = require('dotenv').config();
-var { getUserInfo } = require('../data/data');
+var { getUserInfo, traitement } = require('../data/data');
 
 // API Auth Github
 var githubOAuth = require('github-oauth')({
@@ -11,7 +11,7 @@ var githubOAuth = require('github-oauth')({
   baseURL: process.env.adress,
   loginURI: '/auth/github',
   callbackURI: '/auth/github/callback',
-  scope: 'repo read:user'
+  scope: 'repo read:user read:org'
 });
 
 function checkAuth(req,res,next) {
@@ -58,12 +58,17 @@ githubOAuth.on('token', function(token, serverResponse) {
 
 
 router.get('/traitementOrga', checkAuth, function(req,res) {
-  orga = req.query.organization;
+  organization = req.query.organization;
   username = req.query.username;
-  if (!orga) {
+  if (!organization) {
     res.status(400).end('{"error" : orga parameter required!}')
   }
-  traitement(req.cookies.token,orga,username);
+  traitement(req.cookies.token,organization,username).then((response) => {
+    res.render('index', { title: 'Express', username: "reussi", avatarUrl: "" });
+    console.log(JSON.stringify(response));
+  }).catch(() => {
+    res.render('index', { title: 'Express', username: "erreur", avatarUrl: "" });
+  });
 });
 
 module.exports = router;
