@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var process = require('process');
 var envConf = require('dotenv').config();
 var { getUserInfo, traitement } = require('../data/data');
 
@@ -15,6 +14,8 @@ var githubOAuth = require('github-oauth')({
 });
 
 var scopes = "";
+var username = "";
+var avatarUrl = "";
 
 function checkAuth(req,res,next) {
   if (typeof req.cookies.token !== 'undefined' && scopes === "read:org,read:user,repo") {
@@ -26,14 +27,10 @@ function checkAuth(req,res,next) {
 
 /* GET home page. */
 router.get('/', checkAuth, function(req, res, next) {
-  let view = {
-    username: "",
-    avatarUrl: ""
-  };
   getUserInfo(req.cookies.token).then((response) => {
-    view.username = response.data.viewer.login;
-    view.avatarUrl = response.data.viewer.avatarUrl;
-    res.render('index', { title: 'Express', username: view.username, avatarUrl: view.avatarUrl });
+    username = response.data.viewer.login;
+    avatarUrl = response.data.viewer.avatarUrl;
+    res.render('index', { title: 'Express', username: username, avatarUrl: avatarUrl });
   }).catch(() => {
     res.render('index', { title: 'Express', username: "", avatarUrl: "" });
   });
@@ -52,8 +49,6 @@ githubOAuth.on('error', function(err) {
 });
 
 githubOAuth.on('token', function(token, serverResponse) {
-  console.log(token.access_token);
-  console.log(token);
   scopes = token.scope;
   serverResponse.cookie('token', token.access_token);
   // ajouter le token en base et créer un ID associé
@@ -69,7 +64,6 @@ router.get('/traitementOrga', checkAuth, function(req,res) {
   }
   traitement(req.cookies.token,organization,username).then((response) => {
     res.render('index', { title: 'Express', username: "reussi", avatarUrl: "" });
-    console.log(JSON.stringify(response));
   }).catch(() => {
     res.render('index', { title: 'Express', username: "erreur", avatarUrl: "" });
   });
