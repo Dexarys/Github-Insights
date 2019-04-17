@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var process = require('process');
 var envConf = require('dotenv').config();
 var { getUserInfo, traitement } = require('../data/data');
+var { initConnection } = require('../data/bdd');
+
+
+var connectionBdd = initConnection();
 
 // API Auth Github
 var githubOAuth = require('github-oauth')({
@@ -15,6 +18,8 @@ var githubOAuth = require('github-oauth')({
 });
 
 var scopes = "";
+var username = "";
+var avatarUrl = "";
 
 function checkAuth(req,res,next) {
   if (typeof req.cookies.token !== 'undefined' && scopes === "read:org,read:user,repo") {
@@ -26,6 +31,7 @@ function checkAuth(req,res,next) {
 
 /* GET home page. */
 router.get('/', checkAuth, function(req, res, next) {
+<<<<<<< HEAD
   let view = {
     username: "",
     avatarUrl: "",
@@ -36,6 +42,12 @@ router.get('/', checkAuth, function(req, res, next) {
     view.username = response.data.viewer.login;
     view.avatarUrl = response.data.viewer.avatarUrl;
     res.render('index', { title: 'Express',name: view.name, username: view.username, avatarUrl: view.avatarUrl });
+=======
+  getUserInfo(req.cookies.token).then((response) => {
+    username = response.data.viewer.login;
+    avatarUrl = response.data.viewer.avatarUrl;
+    res.render('index', { title: 'Express', username: username, avatarUrl: avatarUrl });
+>>>>>>> 74c8786cd14c8f5dc56b4ecf2ba148f2e8711d99
   }).catch(() => {
     res.render('index', { title: 'Express', name: "", username: "", avatarUrl: "" });
   });
@@ -75,8 +87,6 @@ githubOAuth.on('error', function(err) {
 });
 
 githubOAuth.on('token', function(token, serverResponse) {
-  console.log(token.access_token);
-  console.log(token);
   scopes = token.scope;
   serverResponse.cookie('token', token.access_token);
   // ajouter le token en base et créer un ID associé
@@ -92,7 +102,6 @@ router.get('/traitementOrga', checkAuth, function(req,res) {
   }
   traitement(req.cookies.token,organization,username).then((response) => {
     res.render('index', { title: 'Express', username: "reussi", avatarUrl: "" });
-    console.log(JSON.stringify(response));
   }).catch(() => {
     res.render('index', { title: 'Express', username: "erreur", avatarUrl: "" });
   });

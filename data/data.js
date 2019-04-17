@@ -1,9 +1,7 @@
 var express = require('express');
 var { default: ApolloClient, gql } = require('apollo-boost');
 var httpie = require('httpie');
-var process = require('process');
 var envConf = require('dotenv').config();
-var ProgressBar = require('progress');
 
 function getUserInfo(githubToken) {
     return new Promise((resolve, reject) => {
@@ -88,7 +86,7 @@ async function traitement(githubToken,githubOrganization,githubId) {
     console.log(`Number of members: ${members.length}`);
 
     return { orgaInfos: orgaInfos, members: members };
-    
+
 
     async function getOrgaInfos() {
         const QUERY = gql`
@@ -131,7 +129,6 @@ async function traitement(githubToken,githubOrganization,githubId) {
             const response = await client.query({
                 query: QUERY
             });
-            membersEdges = response.data.organization.membersWithRole.edges;
             if (membersEdges.length) {
                 const currentBatch = membersEdges.map(edge => edge.node);
                 result = [...result, ...currentBatch];

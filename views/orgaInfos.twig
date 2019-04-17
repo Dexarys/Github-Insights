@@ -1,0 +1,9 @@
+{%  block body %}
+    {%  set vars = {'username':username, 'avatarUrl':avatarUrl, 'title':title} %}
+    {%  include 'nav.twig' with vars %}
+
+
+    <div>
+        <p>Le traitement a réussi</p>
+    </div>
+{%  endblock %}
