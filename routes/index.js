@@ -31,7 +31,6 @@ function checkAuth(req,res,next) {
 
 /* GET home page. */
 router.get('/', checkAuth, function(req, res, next) {
-<<<<<<< HEAD
   let view = {
     username: "",
     avatarUrl: "",
@@ -42,12 +41,6 @@ router.get('/', checkAuth, function(req, res, next) {
     view.username = response.data.viewer.login;
     view.avatarUrl = response.data.viewer.avatarUrl;
     res.render('index', { title: 'Express',name: view.name, username: view.username, avatarUrl: view.avatarUrl });
-=======
-  getUserInfo(req.cookies.token).then((response) => {
-    username = response.data.viewer.login;
-    avatarUrl = response.data.viewer.avatarUrl;
-    res.render('index', { title: 'Express', username: username, avatarUrl: avatarUrl });
->>>>>>> 74c8786cd14c8f5dc56b4ecf2ba148f2e8711d99
   }).catch(() => {
     res.render('index', { title: 'Express', name: "", username: "", avatarUrl: "" });
   });
