@@ -2,10 +2,7 @@ var express = require('express');
 var router = express.Router();
 var envConf = require('dotenv').config();
 var { getUserInfo, traitement } = require('../data/data');
-var { initConnection } = require('../data/bdd');
 
-
-var connectionBdd = initConnection();
 
 // API Auth Github
 var githubOAuth = require('github-oauth')({
@@ -31,14 +28,43 @@ function checkAuth(req,res,next) {
 
 /* GET home page. */
 router.get('/', checkAuth, function(req, res, next) {
+  let view = {
+    username: "",
+    avatarUrl: "",
+    name: ""
+  };
   getUserInfo(req.cookies.token).then((response) => {
-    username = response.data.viewer.login;
-    avatarUrl = response.data.viewer.avatarUrl;
-    res.render('index', { title: 'Express', username: username, avatarUrl: avatarUrl });
+    view.name = response.data.viewer.name;
+    view.username = response.data.viewer.login;
+    view.avatarUrl = response.data.viewer.avatarUrl;
+    res.render('index', { title: 'Express',name: view.name, username: view.username, avatarUrl: view.avatarUrl });
   }).catch(() => {
-    res.render('index', { title: 'Express', username: "", avatarUrl: "" });
+    res.render('index', { title: 'Express', name: "", username: "", avatarUrl: "" });
   });
 });
+
+/* test */
+
+router.get('/test', checkAuth, function(req, res, next) {
+  let view = {
+    username: "",
+    avatarUrl: "",
+    name: ""
+  };
+
+  
+  getUserInfo(req.cookies.token).then((response) => {
+    view.name = response.data.viewer.name;
+    view.username = response.data.viewer.login;
+    view.avatarUrl = response.data.viewer.avatarUrl;
+    res.render('home/home', { title: 'Express',name: view.name, username: view.username, avatarUrl: view.avatarUrl });
+  }).catch(() => {
+    res.render('home/home', { title: 'Express', name: "", username: "", avatarUrl: "" });
+  });
+});
+
+/* test */
+
 
 router.get('/auth/github', function(req,res) {
   return githubOAuth.login(req,res);
