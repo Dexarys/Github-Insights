@@ -34,6 +34,8 @@ function getUserInfo(githubToken) {
         const QUERY = gql`
         {
           viewer {
+            name
+            location
             login
             avatarUrl
           }
