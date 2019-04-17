@@ -2,10 +2,7 @@ var express = require('express');
 var router = express.Router();
 var envConf = require('dotenv').config();
 var { getUserInfo, traitement } = require('../data/data');
-var { initConnection } = require('../data/bdd');
 
-
-var connectionBdd = initConnection();
 
 // API Auth Github
 var githubOAuth = require('github-oauth')({
@@ -54,6 +51,8 @@ router.get('/test', checkAuth, function(req, res, next) {
     avatarUrl: "",
     name: ""
   };
+
+  
   getUserInfo(req.cookies.token).then((response) => {
     view.name = response.data.viewer.name;
     view.username = response.data.viewer.login;
