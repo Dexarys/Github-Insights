@@ -20,7 +20,13 @@ module.exports = {
       repoNumber: {
         type: Sequelize.INTEGER
       },
-      starNumber: {
+      projectNumber: {
+        type: Sequelize.INTEGER
+      },
+      followerNumber: {
+        type: Sequelize.INTEGER
+      },
+      followingNumber: {
         type: Sequelize.INTEGER
       },
       createdAt: {
