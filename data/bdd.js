@@ -19,7 +19,7 @@ function initConnection(test) {
 }
 
 async function checkInfos() {
-    
+
 }
 
 module.exports.initConnection = initConnection;
