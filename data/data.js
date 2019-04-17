@@ -2,7 +2,6 @@ var express = require('express');
 var { default: ApolloClient, gql } = require('apollo-boost');
 var httpie = require('httpie');
 var envConf = require('dotenv').config();
-var ProgressBar = require('progress');
 
 function getUserInfo(githubToken) {
     return new Promise((resolve, reject) => {

@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var envConf = require('dotenv').config();
 var { getUserInfo, traitement } = require('../data/data');
+var { initConnection } = require('../data/bdd');
+
+
+var connectionBdd = initConnection();
 
 // API Auth Github
 var githubOAuth = require('github-oauth')({
