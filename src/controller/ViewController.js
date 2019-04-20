@@ -1,5 +1,5 @@
 const BaseController = require('./BaseController');
-const { getUserInfo } = require('../data/Data');
+const { getUserInfo, traitementOrga } = require('../data/Data');
 const envConf = require('dotenv').config();
 
 
@@ -25,7 +25,8 @@ githubOAuth.on('token', (req, res) => {
 class ViewController extends BaseController {
 
     registerRoutes() {
-        this.router.route('/').get(this.checkAuth, this.index.bind(this));
+        this.router.route('/').get(this.checkAuth, this.userInfos.bind(this));
+        this.router.route('/traitementOrga').get(this.checkAuth, this.orgaInfos.bind(this));
         this.router.route('/auth/github').get(this.githubOAuth.bind(this));
         this.router.route('/auth/github/callback').get(this.githubOAuthCallback.bind(this));
     }
@@ -38,8 +39,16 @@ class ViewController extends BaseController {
         }
     }
 
-    index(req, res) {
-        let view = {
+    githubOAuth(req,res) {
+        return githubOAuth.login(req,res);
+    }
+
+    githubOAuthCallback(req,res) {
+        return githubOAuth.callback(req,res);
+    }
+
+    userInfos(req, res) {
+        let user = {
           username: "",
           avatarUrl: "",
           name: "",
@@ -51,56 +60,92 @@ class ViewController extends BaseController {
           repositoriesNumber: ""
         };
         getUserInfo(req.cookies.token).then((response) => {
-            view.username = response.data.viewer.login;
-            view.name = response.data.viewer.name;
-            view.avatarUrl = response.data.viewer.avatarUrl;
-            view.bio = response.data.viewer.bio;
-            view.location = response.data.viewer.location;
-            view.followerNumber = response.data.viewer.followers.totalCount;
-            view.followingNumber = response.data.viewer.following.totalCount;
-            view.projectsNumber = response.data.viewer.projects.totalCount;
-            view.repositoriesNumber = response.data.viewer.repositories.totalCount;
+            user.username = response.data.viewer.login;
+            user.name = response.data.viewer.name;
+            user.avatarUrl = response.data.viewer.avatarUrl;
+            user.bio = response.data.viewer.bio;
+            user.location = response.data.viewer.location;
+            user.followerNumber = response.data.viewer.followers.totalCount;
+            user.followingNumber = response.data.viewer.following.totalCount;
+            user.projectsNumber = response.data.viewer.projects.totalCount;
+            user.repositoriesNumber = response.data.viewer.repositories.totalCount;
 
 
-            res.render('index', {
+            res.render('userInfos', {
                 title: "Home",
-                username: view.username,
-                name: view.name,
-                avatarUrl: view.avatarUrl,
-                bio: view.bio,
-                location: view.location,
-                followerNumber: view.followerNumber,
-                followingNumber: view.followingNumber,
-                projectsNumber: view.projectsNumber,
-                repositoriesNumber: view.repositoriesNumber
+                username: user.username,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+                bio: user.bio,
+                location: user.location,
+                followerNumber: user.followerNumber,
+                followingNumber: user.followingNumber,
+                projectsNumber: user.projectsNumber,
+                repositoriesNumber: user.repositoriesNumber
             });
         }).catch(() => {
-            res.render('index', {
+            res.render('userInfos', {
                 title: "Home",
-                username: view.username,
-                name: view.name,
-                avatarUrl: view.avatarUrl,
-                bio: view.bio,
-                location: view.location,
-                followerNumber: view.followerNumber,
-                followingNumber: view.followingNumber,
-                projectsNumber: view.projectsNumber,
-                repositoriesNumber: view.repositoriesNumber
+                username: user.username,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+                bio: user.bio,
+                location: user.location,
+                followerNumber: user.followerNumber,
+                followingNumber: user.followingNumber,
+                projectsNumber: user.projectsNumber,
+                repositoriesNumber: user.repositoriesNumber
             });
         });
     }
 
-    test(req,res) {
-        const test = ViewUtil.getViews().TEST;
-        res.render(test.name, test.properties);
-    }
+    orgaInfos(req,res) {
+        let organization = req.query.organization;
+        let orga = {
+            name: "",
+            description: "",
+            location: "",
+            avatarUrl: "",
+            repositoriesNumber: "",
+            projectsNumber: "",
+        }
+        let user = {
+            name: "",
+            username: "",
+            avatarUrl: ""
+        }
+        if (!organization) {
+            res.status(400).end('{"error" : orga parameter required !}');
+        }
+        traitementOrga(req.cookies.token,organization).then((response) => {
+            orga.name = response.data.organization.name;
+            orga.description = response.data.organization.description;
+            orga.location = response.data.organization.location;
+            orga.avatarUrl = response.data.organization.avatarUrl;
+            orga.repositoriesNumber = response.data.organization.repositories.totalCount;
+            orga.projectsNumber = response.data.organization.projects.totalCount;
 
-    githubOAuth(req,res) {
-        return githubOAuth.login(req,res);
-    }
+            user.name = response.data.viewer.name;
+            user.username = response.data.viewer.login;
+            user.avatarUrl = response.data.viewer.avatarUrl;
 
-    githubOAuthCallback(req,res) {
-        return githubOAuth.callback(req,res);
+            res.render('orgaInfos', {
+                title: orga.name,
+                orgaName: orga.name,
+                orgaDescription: orga.name,
+                orgaLocation: orga.name,
+                orgaAvatarUrl: orga.avatarUrl,
+                username: user.username,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+                repositoriesNumber: orga.repositoriesNumber,
+                projectsNumber: orga.projectsNumber
+            });
+            console.log(response);
+        }).catch(() => {
+            console.log('Error fetching elements');
+            res.redirect('/');
+        });
     }
 
 
