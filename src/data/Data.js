@@ -35,6 +35,19 @@ function getUserInfo(githubToken) {
             location
             login
             avatarUrl
+            bio
+            followers {
+                totalCount
+            }
+            following {
+                totalCount
+            }
+            projects {
+                totalCount
+            }
+            repositories {
+                totalCount
+            }
           }
         }
         `;

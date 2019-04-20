@@ -4,7 +4,6 @@ const path = require('path');
 const logger = require('./config/Logger');
 const StatusHandler = require('./middleware/StatusHandler');
 const SequelizeConnector = require('./config/SequelizeConnector');
-const session = require('express-session');
 const ModelFactory = require('./factory/ModelFactory');
 const DaoFactory = require('./factory/DaoFactory');
 const ServiceFactory = require('./factory/ServiceFactory');

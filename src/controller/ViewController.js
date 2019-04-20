@@ -1,5 +1,6 @@
 const BaseController = require('./BaseController');
 const { getUserInfo } = require('../data/Data');
+const envConf = require('dotenv').config();
 
 
 const githubOAuth = require('github-oauth')({
@@ -14,17 +15,17 @@ const githubOAuth = require('github-oauth')({
 // Evenement Github
 
 githubOAuth.on('error', (err) => {
-    this.logger.error(`There was a login error : ${err}`);
+    console.log(`There was a login error : ${err}`);
 });
 githubOAuth.on('token', (req, res) => {
     res.cookie('token', req.access_token);
+    res.redirect('/');
 });
 
 class ViewController extends BaseController {
 
     registerRoutes() {
         this.router.route('/').get(this.checkAuth, this.index.bind(this));
-        this.router.route('/test').get(this.checkAuth, this.test.bind(this));
         this.router.route('/auth/github').get(this.githubOAuth.bind(this));
         this.router.route('/auth/github/callback').get(this.githubOAuthCallback.bind(this));
     }
@@ -41,15 +42,51 @@ class ViewController extends BaseController {
         let view = {
           username: "",
           avatarUrl: "",
-          name: ""
+          name: "",
+          bio: "",
+          location: "",
+          followerNumber: "",
+          followingNumber: "",
+          projectsNumber: "",
+          repositoriesNumber: ""
         };
         getUserInfo(req.cookies.token).then((response) => {
             view.username = response.data.viewer.login;
             view.name = response.data.viewer.name;
             view.avatarUrl = response.data.viewer.avatarUrl;
-            res.render('index', { title: "Home", username: view.username, name: view.name, avatarUrl: view.avatarUrl });
+            view.bio = response.data.viewer.bio;
+            view.location = response.data.viewer.location;
+            view.followerNumber = response.data.viewer.followers.totalCount;
+            view.followingNumber = response.data.viewer.following.totalCount;
+            view.projectsNumber = response.data.viewer.projects.totalCount;
+            view.repositoriesNumber = response.data.viewer.repositories.totalCount;
+
+
+            res.render('index', {
+                title: "Home",
+                username: view.username,
+                name: view.name,
+                avatarUrl: view.avatarUrl,
+                bio: view.bio,
+                location: view.location,
+                followerNumber: view.followerNumber,
+                followingNumber: view.followingNumber,
+                projectsNumber: view.projectsNumber,
+                repositoriesNumber: view.repositoriesNumber
+            });
         }).catch(() => {
-            res.render('index', { title: "Home", username: view.username, name: view.name, avatarUrl: view.avatarUrl });
+            res.render('index', {
+                title: "Home",
+                username: view.username,
+                name: view.name,
+                avatarUrl: view.avatarUrl,
+                bio: view.bio,
+                location: view.location,
+                followerNumber: view.followerNumber,
+                followingNumber: view.followingNumber,
+                projectsNumber: view.projectsNumber,
+                repositoriesNumber: view.repositoriesNumber
+            });
         });
     }
 
