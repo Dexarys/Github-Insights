@@ -118,30 +118,11 @@ class ViewController extends BaseController {
             res.status(400).end('{"error" : orga parameter required !}');
         }
         traitementOrga(req.cookies.token,organization).then((response) => {
-            orga.name = response.data.organization.name;
-            orga.description = response.data.organization.description;
-            orga.location = response.data.organization.location;
-            orga.avatarUrl = response.data.organization.avatarUrl;
-            orga.repositoriesNumber = response.data.organization.repositories.totalCount;
-            orga.projectsNumber = response.data.organization.projects.totalCount;
-
-            user.name = response.data.viewer.name;
-            user.username = response.data.viewer.login;
-            user.avatarUrl = response.data.viewer.avatarUrl;
+            console.log(response);
 
             res.render('orgaInfos', {
-                title: orga.name,
-                orgaName: orga.name,
-                orgaDescription: orga.name,
-                orgaLocation: orga.name,
-                orgaAvatarUrl: orga.avatarUrl,
-                username: user.username,
-                name: user.name,
-                avatarUrl: user.avatarUrl,
-                repositoriesNumber: orga.repositoriesNumber,
-                projectsNumber: orga.projectsNumber
+                title: 'Home'
             });
-            console.log(response);
         }).catch(() => {
             console.log('Error fetching elements');
             res.redirect('/');
