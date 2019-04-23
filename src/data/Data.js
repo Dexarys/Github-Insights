@@ -56,6 +56,84 @@ async function getUserInfo(githubToken) {
     });
 }
 
+async function traitementUser(githubToken) {
+    const client = new ApolloClient({
+        uri: `https://api.github.com/graphql?access_token=${githubToken}`,
+        fetch: async (uri, options) => {
+            const { method } = options
+            options.family = 4
+            options.headers = {
+                ...options.headers,
+                'User-Agent': "github-insight"
+            }
+            const res = await httpie.send(method, uri, options)
+            return {
+                text: async () => JSON.stringify(res.data),
+                json: async () => res.data,
+            }
+        },
+        request: operation => {
+            operation.setContext({
+                headers: {
+                    authorization: `Bearer ${githubToken}`,
+                },
+            });
+        },
+    });
+
+    let userRepositories = await getRepositories();
+
+
+    async function getRepositories() {
+        let result = [];
+        let repositoriesEdges = [];
+
+        do {
+            const repositoriesCursor = repositoriesEdges.length ? repositoriesEdges[repositoriesEdges.length - 1].cursor : '';
+            await sleep(100);
+            const QUERY = gql`
+                {
+                    viewer {
+                        repositories(first: 100${repositoriesCursor !== '' ? `, after: "${repositoriesCursor}"` : ''}, isFork: false, isLocked: false) {
+                            edges {
+                                node {
+                                    description
+                                    name
+                                    url
+                                    primaryLanguage {
+                                        name
+                                    }
+                                    stargazers {
+                                        totalCount
+                                    }
+                                    owner {
+                                        login
+                                    }
+                                }
+                                cursor
+                            }
+                        }
+                    }
+                }
+                `;
+
+            const response = await client.query({
+                query: QUERY,
+            });
+
+            repositoriesEdges = response.data.viewer.repositories.edges;
+            if (repositoriesEdges.length) {
+                const currentBatch = repositoriesEdges.map(edge => edge.node);
+                result = [...result, ...currentBatch];
+            }
+
+        } while (repositoriesEdges.length > 0);
+        return result;
+    }
+
+    return userRepositories;
+}
+
 async function traitementOrga(githubToken, githubOrganization) {
     const client = new ApolloClient({
         uri: `https://api.github.com/graphql?access_token=${githubToken}`,
@@ -232,7 +310,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
+module.exports.traitementUser = traitementUser;
 module.exports.getUserInfo = getUserInfo;
 module.exports.traitementOrga = traitementOrga;
 

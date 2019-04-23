@@ -1,5 +1,5 @@
 const BaseController = require('./BaseController');
-const { getUserInfo, traitementOrga } = require('../data/Data');
+const { getUserInfo, traitementOrga, traitementUser } = require('../data/Data');
 const envConf = require('dotenv').config();
 
 
@@ -69,6 +69,12 @@ class ViewController extends BaseController {
             user.followingNumber = response.data.viewer.following.totalCount;
             user.projectsNumber = response.data.viewer.projects.totalCount;
             user.repositoriesNumber = response.data.viewer.repositories.totalCount;
+
+            traitementUser(req.cookies.token).then((response) => {
+                console.log(response);
+            }).catch(() => {
+                console.log('Error while fetching user repositories');
+            });
 
 
             res.render('userInfos', {
