@@ -1,3 +1,5 @@
+var Chart = require('chart.js');
+
 const BaseController = require('./BaseController');
 const { getUserInfo, traitementOrga, traitementUser } = require('../data/Data');
 const envConf = require('dotenv').config();
@@ -31,7 +33,7 @@ class ViewController extends BaseController {
         this.router.route('/auth/github/callback').get(this.githubOAuthCallback.bind(this));
     }
 
-    checkAuth(req,res,next) {
+    checkAuth(req, res, next) {
         if (typeof req.cookies.token !== 'undefined') {
             next();
         } else {
@@ -39,26 +41,29 @@ class ViewController extends BaseController {
         }
     }
 
-    githubOAuth(req,res) {
-        return githubOAuth.login(req,res);
+    githubOAuth(req, res) {
+        return githubOAuth.login(req, res);
     }
 
-    githubOAuthCallback(req,res) {
-        return githubOAuth.callback(req,res);
+    githubOAuthCallback(req, res) {
+        return githubOAuth.callback(req, res);
     }
 
     userInfos(req, res) {
         let user = {
-          username: "",
-          avatarUrl: "",
-          name: "",
-          bio: "",
-          location: "",
-          followerNumber: "",
-          followingNumber: "",
-          projectsNumber: "",
-          repositoriesNumber: ""
+            username: "",
+            avatarUrl: "",
+            name: "",
+            bio: "",
+            location: "",
+            followerNumber: "",
+            followingNumber: "",
+            projectsNumber: "",
+            repositoriesNumber: ""
         };
+        var statsLanguageLabel = [];
+        var statsLanguage = [];
+
         getUserInfo(req.cookies.token).then((response) => {
             user.username = response.data.viewer.login;
             user.name = response.data.viewer.name;
@@ -70,25 +75,41 @@ class ViewController extends BaseController {
             user.projectsNumber = response.data.viewer.projects.totalCount;
             user.repositoriesNumber = response.data.viewer.repositories.totalCount;
 
+            var j = 0;
+
             traitementUser(req.cookies.token).then((response) => {
-                console.log(response);
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].primaryLanguage) {
+                        var name = response[i].primaryLanguage.name;
+                        console.log(name);
+                        if (statsLanguage[name] == undefined) {
+                            statsLanguage[name] = 1;
+                            statsLanguageLabel[j] = name;
+                            j++;
+                        }
+                        else {
+                            statsLanguage[name] = statsLanguage[name] + 1;
+                        }
+                    }
+                }
+                res.render('userInfos', {
+                    title: "Home",
+                    username: user.username,
+                    name: user.name,
+                    avatarUrl: user.avatarUrl,
+                    bio: user.bio,
+                    location: user.location,
+                    followerNumber: user.followerNumber,
+                    followingNumber: user.followingNumber,
+                    projectsNumber: user.projectsNumber,
+                    repositoriesNumber: user.repositoriesNumber,
+                    statsLanguage: statsLanguage,
+                    statsLanguageLabel: statsLanguageLabel,
+                });
             }).catch(() => {
                 console.log('Error while fetching user repositories');
             });
 
-
-            res.render('userInfos', {
-                title: "Home",
-                username: user.username,
-                name: user.name,
-                avatarUrl: user.avatarUrl,
-                bio: user.bio,
-                location: user.location,
-                followerNumber: user.followerNumber,
-                followingNumber: user.followingNumber,
-                projectsNumber: user.projectsNumber,
-                repositoriesNumber: user.repositoriesNumber
-            });
         }).catch(() => {
             res.render('userInfos', {
                 title: "Home",
@@ -100,12 +121,14 @@ class ViewController extends BaseController {
                 followerNumber: user.followerNumber,
                 followingNumber: user.followingNumber,
                 projectsNumber: user.projectsNumber,
-                repositoriesNumber: user.repositoriesNumber
+                repositoriesNumber: user.repositoriesNumber,
+                statsLanguage: JSON.stringify(statsLanguage),
+                statsLanguageLabel: JSON.stringify(statsLanguageLabel),
             });
         });
     }
 
-    orgaInfos(req,res) {
+    orgaInfos(req, res) {
         let organization = req.query.organization;
         let orga = {
             name: "",
@@ -123,7 +146,7 @@ class ViewController extends BaseController {
         if (!organization) {
             res.status(400).end('{"error" : orga parameter required !}');
         }
-        traitementOrga(req.cookies.token,organization).then((response) => {
+        traitementOrga(req.cookies.token, organization).then((response) => {
             console.log(response);
 
             res.render('orgaInfos', {
