@@ -61,8 +61,10 @@ class ViewController extends BaseController {
             projectsNumber: "",
             repositoriesNumber: ""
         };
-        var statsLanguageLabel = [];
-        var statsLanguage = [];
+        var statsLanguageLabels = [];
+        var statsLanguages = [];
+        var statsOwnerLabels = [];
+        var statsOwners = [];
 
         getUserInfo(req.cookies.token).then((response) => {
             user.username = response.data.viewer.login;
@@ -76,22 +78,40 @@ class ViewController extends BaseController {
             user.repositoriesNumber = response.data.viewer.repositories.totalCount;
 
             var j = 0;
+            var k = 0;
 
             traitementUser(req.cookies.token).then((response) => {
                 for (var i = 0; i < response.length; i++) {
                     if (response[i].primaryLanguage) {
+
                         var name = response[i].primaryLanguage.name;
+                        var owner = response[i].owner.login;
+
                         console.log(name);
-                        if (statsLanguage[name] == undefined) {
-                            statsLanguage[name] = 1;
-                            statsLanguageLabel[j] = name;
+                        console.log(owner);
+
+                        if (statsLanguageLabels.indexOf(name) == -1) {
+                            statsLanguages[j] = 1;
+                            statsLanguageLabels[j] = name;
                             j++;
                         }
                         else {
-                            statsLanguage[name] = statsLanguage[name] + 1;
+                            statsLanguages[statsLanguageLabels.indexOf(name)] = statsLanguages[statsLanguageLabels.indexOf(name)] + 1;
+                        }
+
+                        if (statsOwnerLabels.indexOf(owner) == -1) {
+                            statsOwners[k] = 1;
+                            statsOwnerLabels[k] = owner;
+                            k++;
+                        }
+                        else {
+                            statsOwners[statsOwnerLabels.indexOf(owner)] = statsOwners[statsOwnerLabels.indexOf(owner)] + 1;
                         }
                     }
                 }
+
+                console.log(response);
+
                 res.render('userInfos', {
                     title: "Home",
                     username: user.username,
@@ -103,8 +123,10 @@ class ViewController extends BaseController {
                     followingNumber: user.followingNumber,
                     projectsNumber: user.projectsNumber,
                     repositoriesNumber: user.repositoriesNumber,
-                    statsLanguage: statsLanguage,
-                    statsLanguageLabel: statsLanguageLabel,
+                    statsLanguages: statsLanguages,
+                    statsLanguageLabels: statsLanguageLabels,
+                    statsOwners: statsOwners,
+                    statsOwnerLabels: statsOwnerLabels,
                 });
             }).catch(() => {
                 console.log('Error while fetching user repositories');
@@ -122,8 +144,10 @@ class ViewController extends BaseController {
                 followingNumber: user.followingNumber,
                 projectsNumber: user.projectsNumber,
                 repositoriesNumber: user.repositoriesNumber,
-                statsLanguage: JSON.stringify(statsLanguage),
-                statsLanguageLabel: JSON.stringify(statsLanguageLabel),
+                statsLanguages: statsLanguages,
+                statsLanguageLabels: statsLanguageLabels,
+                statsOwners: statsOwners,
+                statsOwnerLabels: statsOwnerLabels,
             });
         });
     }
