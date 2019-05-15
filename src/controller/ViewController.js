@@ -2,7 +2,6 @@ var Chart = require('chart.js');
 
 const BaseController = require('./BaseController');
 const { getUserInfo, traitementOrga, traitementUser } = require('../data/Data');
-const envConf = require('dotenv').config();
 
 
 const githubOAuth = require('github-oauth')({
@@ -63,6 +62,7 @@ class ViewController extends BaseController {
         };
         var statsLanguageLabel = [];
         var statsLanguage = [];
+        var nombreStars = 0;
 
         getUserInfo(req.cookies.token).then((response) => {
             user.username = response.data.viewer.login;
@@ -79,6 +79,7 @@ class ViewController extends BaseController {
 
             traitementUser(req.cookies.token).then((response) => {
                 for (var i = 0; i < response.length; i++) {
+                    nombreStars = nombreStars + response[i].stargazers.totalCount;
                     if (response[i].primaryLanguage) {
                         var name = response[i].primaryLanguage.name;
                         console.log(name);
@@ -105,6 +106,7 @@ class ViewController extends BaseController {
                     repositoriesNumber: user.repositoriesNumber,
                     statsLanguage: statsLanguage,
                     statsLanguageLabel: statsLanguageLabel,
+                    stars: nombreStars
                 });
             }).catch(() => {
                 console.log('Error while fetching user repositories');
