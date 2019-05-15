@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b90a8ac1-6151-40aa-b39f-93624a03f8d7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/SequelizeConfiguration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/SequelizeConnector.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ViewController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ViewController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/BaseDao.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/UserDao.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dto/UserDto.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/enum/BaseEnum.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/enum/RightEnum.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/DaoFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/ModelFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factory/ServiceFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BaseModel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/UserModel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/BaseService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/UserService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/BaseUtil.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/BcryptUtil.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/DateUtil.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/DtoUtil.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/template/base.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/template/base.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/userInfos.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/userInfos.twig" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
@@ -42,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/Data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="105" column="46" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="46" />
+            <state relative-caret-position="2041">
+              <caret line="305" column="71" lean-forward="true" selection-start-line="305" selection-start-column="71" selection-end-line="305" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -51,20 +29,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/userInfos.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1702">
-              <caret line="94" column="74" selection-start-line="94" selection-start-column="74" selection-end-line="94" selection-end-column="74" />
+            <state relative-caret-position="882">
+              <caret line="93" selection-start-line="93" selection-end-line="93" />
               <folding>
-                <element signature="e#8834#8840#0#HTML" expanded="true" />
+                <element signature="e#9464#9470#0#HTML" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/template/base.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -108,20 +77,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/ViewController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="386">
+              <caret line="193" column="51" selection-start-line="193" selection-start-column="51" selection-end-line="193" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/controller/BaseController.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/orgaInfos.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="70" lean-forward="true" selection-start-line="7" selection-start-column="70" selection-end-line="7" selection-end-column="70" />
+            <state relative-caret-position="408">
+              <caret line="111" column="79" selection-start-line="111" selection-start-column="65" selection-end-line="111" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -153,10 +122,10 @@
         <option value="$PROJECT_DIR$/src/factory/ControllerFactory.js" />
         <option value="$PROJECT_DIR$/public/js/index.js" />
         <option value="$PROJECT_DIR$/src/views/template/base.twig" />
-        <option value="$PROJECT_DIR$/src/views/userInfos.twig" />
-        <option value="$PROJECT_DIR$/src/controller/ViewController.js" />
         <option value="$PROJECT_DIR$/src/server.js" />
         <option value="$PROJECT_DIR$/src/controller/BaseController.js" />
+        <option value="$PROJECT_DIR$/src/views/userInfos.twig" />
+        <option value="$PROJECT_DIR$/src/controller/ViewController.js" />
       </list>
     </option>
   </component>
@@ -271,7 +240,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36558000" />
+    <option name="totallyTimeSpent" value="40006000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -334,13 +303,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/error.twig">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/orgaInfos.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.env.example">
       <provider selected="true" editor-type-id="text-editor">
@@ -442,30 +404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/template/base.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/Data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="105" column="46" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/userInfos.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1702">
-          <caret line="94" column="74" selection-start-line="94" selection-start-column="74" selection-end-line="94" selection-end-column="74" />
-          <folding>
-            <element signature="e#8834#8840#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/factory/ControllerFactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -483,17 +421,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/ViewController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/BaseController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="70" lean-forward="true" selection-start-line="7" selection-start-column="70" selection-end-line="7" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/template/base.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="74" lean-forward="true" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/userInfos.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+          <folding>
+            <element signature="e#9464#9470#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/Data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2041">
+          <caret line="305" column="71" lean-forward="true" selection-start-line="305" selection-start-column="71" selection-end-line="305" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/orgaInfos.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="111" column="79" selection-start-line="111" selection-start-column="65" selection-end-line="111" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/ViewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="193" column="51" selection-start-line="193" selection-start-column="51" selection-end-line="193" selection-end-column="51" />
         </state>
       </provider>
     </entry>
