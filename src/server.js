@@ -3,20 +3,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('./config/Logger');
 const StatusHandler = require('./middleware/StatusHandler');
-const SequelizeConnector = require('./config/SequelizeConnector');
-const ModelFactory = require('./factory/ModelFactory');
-const DaoFactory = require('./factory/DaoFactory');
-const ServiceFactory = require('./factory/ServiceFactory');
 const ControllerFactory = require('./factory/ControllerFactory');
 const cookieParser = require('cookie-parser');
+const envConf = require('dotenv').config();
+
 
 class Server {
     constructor() {
         this.app = express();
         this.router = express.Router();
-        this.models = {};
-        this.daos = {};
-        this.services = {};
         this.setBodyParser();
         this.setPort();
         this.setStatusCodeHandler();
