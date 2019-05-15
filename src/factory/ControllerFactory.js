@@ -6,7 +6,7 @@ const ViewController = require('../controller/ViewController');
  * Here we instantiate the controllers
  */
 class ControllerUtil extends BaseFactory {
-    static initController(app, router, services, statusHandler, logger) {
+    static initController(app, router, statusHandler, logger) {
         return new Promise((resolve, reject) => {
             try {
                 app.use('/', router);
