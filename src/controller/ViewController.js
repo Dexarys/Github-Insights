@@ -89,8 +89,6 @@ class ViewController extends BaseController {
                         var name = response[i].primaryLanguage.name;
                         var owner = response[i].owner.login;
 
-                        console.log(name);
-                        console.log(owner);
 
                         if (statsLanguageLabels.indexOf(name) == -1) {
                             statsLanguages[j] = 1;
@@ -112,7 +110,6 @@ class ViewController extends BaseController {
                     }
                 }
 
-                console.log(response);
 
                 res.render('userInfos', {
                     title: "Home",
@@ -174,10 +171,27 @@ class ViewController extends BaseController {
             res.status(400).end('{"error" : orga parameter required !}');
         }
         traitementOrga(req.cookies.token, organization).then((response) => {
-            console.log(response);
+            orga.name = response.orgaInfos.data.organization.name;
+            orga.description = response.orgaInfos.data.organisation.description;
+            orga.location = response.orgaInfos.data.organization.location;
+            orga.avatarUrl = response.orgaInfos.data.organization.avatarUrl;
+            orga.repositoriesNumber = response.orgaInfos.data.organization.repositories.totalCount;
+            orga.projectsNumber = response.orgaInfos.data.organization.projects.totalCount;
+
+            user.name = response.orgaInfos.data.viewer.name;
+            user.username = response.orgaInfos.data.viewer.username;
+            user.avatarUrl = response.orgaInfos.data.viewer.avatarUrl;
+            console.log(orga.name);
+
 
             res.render('orgaInfos', {
-                title: 'Home'
+                title: 'Home',
+                username: user.username,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+                orgaName: orga.name,
+                repositoriesNumber: orga.repositoriesNumber,
+                projectsNumber: orga.projectsNumber
             });
         }).catch(() => {
             console.log('Error fetching elements');
