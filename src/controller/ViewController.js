@@ -66,6 +66,7 @@ class ViewController extends BaseController {
         var statsOwnerLabels = [];
         var statsOwners = [];
         var nombreStars = 0;
+        var repositories = [];
 
         getUserInfo(req.cookies.token).then((response) => {
             user.username = response.data.viewer.login;
@@ -82,6 +83,10 @@ class ViewController extends BaseController {
             var k = 0;
 
             traitementUser(req.cookies.token).then((response) => {
+
+                repositories = response;
+
+                console.log(repositories);
                 for (var i = 0; i < response.length; i++) {
                     nombreStars = nombreStars + response[i].stargazers.totalCount;
                     if (response[i].primaryLanguage) {
@@ -127,6 +132,7 @@ class ViewController extends BaseController {
                     statsOwners: statsOwners,
                     statsOwnerLabels: statsOwnerLabels,
                     stars: nombreStars,
+                    repositories: repositories
                 });
             }).catch(() => {
                 console.log('Error while fetching user repositories');

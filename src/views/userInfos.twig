@@ -220,6 +220,30 @@
                 </div>
             </div>
 
+
+            <div>
+                <div>
+                    <section class="content">
+                        <div class="">
+                            <h2>Most stared repositories</h2>
+                            {% for repo in repositories|slice(0,5) %}
+                                <div class="box row">
+                                    <div>
+                                        <h4 class="">{{ loop.index }} - {{ repo.name }}</h4>
+                                    </div>
+                                    <div>
+                                        <p>{{ repo.description }}</p>
+                                    </div>
+                                    <div>
+                                        <p>{{ repo.stargazers.totalCount }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                </div>
+            </div>
+
         </section>
         <!-- /.content -->
     </div>

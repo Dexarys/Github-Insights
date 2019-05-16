@@ -94,7 +94,7 @@ async function traitementUser(githubToken) {
             const QUERY = gql`
                 {
                     viewer {
-                        repositories(first: 100${repositoriesCursor !== '' ? `, after: "${repositoriesCursor}"` : ''}, isFork: false, isLocked: false) {
+                        repositories(first: 100${repositoriesCursor !== '' ? `, after: "${repositoriesCursor}"` : ''}, isFork: false, isLocked: false, orderBy: { field: STARGAZERS, direction: DESC }) {
                             edges {
                                 node {
                                     description
