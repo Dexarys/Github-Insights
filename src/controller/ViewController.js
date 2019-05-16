@@ -170,6 +170,7 @@ class ViewController extends BaseController {
         if (!organization) {
             res.status(400).end('{"error" : orga parameter required !}');
         }
+        console.log(req.cookies.token);
         traitementOrga(req.cookies.token, organization).then((response) => {
             orga.name = response.orgaInfos.data.organization.name;
             orga.description = response.orgaInfos.data.organisation.description;
@@ -195,7 +196,9 @@ class ViewController extends BaseController {
             });
         }).catch(() => {
             console.log('Error fetching elements');
-            res.redirect('/');
+            res.render('error', {
+                title: 'Error'
+            });
         });
     }
 
