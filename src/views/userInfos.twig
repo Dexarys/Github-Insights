@@ -103,9 +103,9 @@
         class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h2>
                 My informations
-            </h1>
+            </h2>
         </section>
 
         <!-- Main content -->
@@ -203,7 +203,7 @@
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <section class="content">
                         <div class="box justify-content-center">
-                            <h2>Repositories number by language</h2>
+                            <h1>Repositories number by language</h1>
                             <canvas id="languageChart"></canvas>
                         </div>
                     </section>
@@ -213,7 +213,7 @@
 
                     <section class="content">
                         <div class="box justify-content-center">
-                            <h2>Repositories number by owner</h2>
+                            <h1>Repositories number by owner</h1>
                             <canvas id="ownerChart"></canvas>
                         </div>
                     </section>
@@ -225,13 +225,11 @@
                 <div>
                     <section class="content">
                         <div class="">
-                            <h2>Most stared repositories</h2>
+                            <h1>Most stared repositories</h1>
                             {% for repo in repositories|slice(0,5) %}
                                 <div class="box row">
                                     <div>
-                                        <h4 class="">{{ loop.index }} - {{ repo.name }}</h4>
-                                    </div>
-                                    <div>
+                                        <h4 class="col-md-11">{{ loop.index }} - {{ repo.name }}</h4>
                                         <p>{{ repo.description }}</p>
                                     </div>
                                     <div>

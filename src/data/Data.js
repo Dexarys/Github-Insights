@@ -168,7 +168,6 @@ async function traitementOrga(githubToken, githubOrganization) {
     } catch(e) {
         console.error("Error while fetching element", JSON.stringify(e, undefined, 2));
     }
-    console.log(`Number of members: ${members.length}`);
 
     let membersInError = [];
     let getOrganizationRepositories = makeGetRepositories('organization');

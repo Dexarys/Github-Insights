@@ -86,7 +86,6 @@ class ViewController extends BaseController {
 
                 repositories = response;
 
-                console.log(repositories);
                 for (var i = 0; i < response.length; i++) {
                     nombreStars = nombreStars + response[i].stargazers.totalCount;
                     if (response[i].primaryLanguage) {
@@ -176,7 +175,6 @@ class ViewController extends BaseController {
         if (!organization) {
             res.status(400).end('{"error" : orga parameter required !}');
         }
-        console.log(req.cookies.token);
         traitementOrga(req.cookies.token, organization).then((response) => {
             orga.name = response.orgaInfos.data.organization.name;
             orga.description = response.orgaInfos.data.organisation.description;
@@ -188,8 +186,6 @@ class ViewController extends BaseController {
             user.name = response.orgaInfos.data.viewer.name;
             user.username = response.orgaInfos.data.viewer.username;
             user.avatarUrl = response.orgaInfos.data.viewer.avatarUrl;
-            console.log(orga.name);
-
 
             res.render('orgaInfos', {
                 title: 'Home',
@@ -200,10 +196,10 @@ class ViewController extends BaseController {
                 repositoriesNumber: orga.repositoriesNumber,
                 projectsNumber: orga.projectsNumber
             });
-        }).catch(() => {
-            console.log('Error fetching elements');
+        }).catch((err) => {
             res.render('error', {
-                title: 'Error'
+                title: 'Error',
+                msg: `An error occurred when retrieving the organization's information`,
             });
         });
     }
