@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: front
-          image: "yfouillet/github-insights:latest
+          image: "yfouillet/github-insights:latest"
           env: 
           - name: VAR_ADRESS
           value: "VAR_ADRESS_replace"
