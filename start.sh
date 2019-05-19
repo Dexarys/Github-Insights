@@ -22,4 +22,4 @@ sed -i -e "s/VAR_GITHUB_SECRET/$VAR_GITHUB_SECRET/g" .env.example
 
 mv -f .env.example .env
 
-exit
+npm start
