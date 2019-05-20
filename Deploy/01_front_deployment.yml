@@ -23,7 +23,7 @@ spec:
           image: "yfouillet/github-insights:latest"
           env: 
           - name: VAR_ADRESS
-            value: https://VAR_ADRESS_replace
+            value: VAR_ADRESS_replace
           - name: VAR_GITHUB_KEY
             value: VAR_GITHUB_KEY_replace
           - name: VAR_GITHUB_SECRET
