@@ -3,20 +3,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('./config/Logger');
 const StatusHandler = require('./middleware/StatusHandler');
-const SequelizeConnector = require('./config/SequelizeConnector');
-const ModelFactory = require('./factory/ModelFactory');
-const DaoFactory = require('./factory/DaoFactory');
-const ServiceFactory = require('./factory/ServiceFactory');
 const ControllerFactory = require('./factory/ControllerFactory');
 const cookieParser = require('cookie-parser');
+const envConf = require('dotenv').config();
+
 
 class Server {
     constructor() {
         this.app = express();
         this.router = express.Router();
-        this.models = {};
-        this.daos = {};
-        this.services = {};
         this.setBodyParser();
         this.setPort();
         this.setStatusCodeHandler();
@@ -40,19 +35,11 @@ class Server {
     /**
      * * Bootstrapping Server
      */
+
     run() {
-        logger.info('Connecting to mysql...');
-        SequelizeConnector.connect(logger).then((sequelizeConnection) => {
-            logger.info('Connection complete !');
-            ModelFactory.initModels(sequelizeConnection, this.models, logger).then(() => {
-                DaoFactory.initDaos(this.daos, this.models, logger).then(() => {
-                    ServiceFactory.initServices(this.services, this.daos, logger).then(() => {
-                        ControllerFactory.initController(this.app, this.router, this.services, this.statusHandler, logger).then(() => {
-                            this.app.listen(this.port, () => logger.info(`Server started on port ${this.port} !`));
-                        }).catch(err => logger.error(err.message));
-                    }).catch(err => logger.error(err.message));
-                }).catch(err => logger.error(err.message));
-            }).catch(err => logger.error(err.message));
+        logger.info(`Initialisation de l'application`);
+        ControllerFactory.initController(this.app,this.router,this.statusHandler,logger).then(() => {
+            this.app.listen(this.port, () => logger.info(`Server started on port ${this.port} !`));
         }).catch(err => logger.error(err.message));
     }
 

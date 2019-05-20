@@ -1,6 +1,7 @@
+var Chart = require('chart.js');
+
 const BaseController = require('./BaseController');
 const { getUserInfo, traitementOrga, traitementUser } = require('../data/Data');
-const envConf = require('dotenv').config();
 
 
 const githubOAuth = require('github-oauth')({
@@ -59,6 +60,14 @@ class ViewController extends BaseController {
             projectsNumber: "",
             repositoriesNumber: ""
         };
+
+        var statsLanguageLabels = [];
+        var statsLanguages = [];
+        var statsOwnerLabels = [];
+        var statsOwners = [];
+        var nombreStars = 0;
+        var repositories = [];
+
         getUserInfo(req.cookies.token).then((response) => {
             user.username = response.data.viewer.login;
             user.name = response.data.viewer.name;
@@ -70,25 +79,64 @@ class ViewController extends BaseController {
             user.projectsNumber = response.data.viewer.projects.totalCount;
             user.repositoriesNumber = response.data.viewer.repositories.totalCount;
 
+            var j = 0;
+            var k = 0;
+
             traitementUser(req.cookies.token).then((response) => {
-                console.log(response);
+
+                repositories = response;
+
+                for (var i = 0; i < response.length; i++) {
+                    nombreStars = nombreStars + response[i].stargazers.totalCount;
+                    if (response[i].primaryLanguage) {
+
+                        var name = response[i].primaryLanguage.name;
+                        var owner = response[i].owner.login;
+
+
+                        if (statsLanguageLabels.indexOf(name) == -1) {
+                            statsLanguages[j] = 1;
+                            statsLanguageLabels[j] = name;
+                            j++;
+                        }
+                        else {
+                            statsLanguages[statsLanguageLabels.indexOf(name)] = statsLanguages[statsLanguageLabels.indexOf(name)] + 1;
+                        }
+
+                        if (statsOwnerLabels.indexOf(owner) == -1) {
+                            statsOwners[k] = 1;
+                            statsOwnerLabels[k] = owner;
+                            k++;
+                        }
+                        else {
+                            statsOwners[statsOwnerLabels.indexOf(owner)] = statsOwners[statsOwnerLabels.indexOf(owner)] + 1;
+                        }
+                    }
+                }
+
+
+                res.render('userInfos', {
+                    title: "Home",
+                    username: user.username,
+                    name: user.name,
+                    avatarUrl: user.avatarUrl,
+                    bio: user.bio,
+                    location: user.location,
+                    followerNumber: user.followerNumber,
+                    followingNumber: user.followingNumber,
+                    projectsNumber: user.projectsNumber,
+                    repositoriesNumber: user.repositoriesNumber,
+                    statsLanguages: statsLanguages,
+                    statsLanguageLabels: statsLanguageLabels,
+                    statsOwners: statsOwners,
+                    statsOwnerLabels: statsOwnerLabels,
+                    stars: nombreStars,
+                    repositories: repositories
+                });
             }).catch(() => {
                 console.log('Error while fetching user repositories');
             });
 
-
-            res.render('userInfos', {
-                title: "Home",
-                username: user.username,
-                name: user.name,
-                avatarUrl: user.avatarUrl,
-                bio: user.bio,
-                location: user.location,
-                followerNumber: user.followerNumber,
-                followingNumber: user.followingNumber,
-                projectsNumber: user.projectsNumber,
-                repositoriesNumber: user.repositoriesNumber
-            });
         }).catch(() => {
             res.render('userInfos', {
                 title: "Home",
@@ -100,7 +148,11 @@ class ViewController extends BaseController {
                 followerNumber: user.followerNumber,
                 followingNumber: user.followingNumber,
                 projectsNumber: user.projectsNumber,
-                repositoriesNumber: user.repositoriesNumber
+                repositoriesNumber: user.repositoriesNumber,
+                statsLanguages: statsLanguages,
+                statsLanguageLabels: statsLanguageLabels,
+                statsOwners: statsOwners,
+                statsOwnerLabels: statsOwnerLabels,
             });
         });
     }
@@ -124,18 +176,32 @@ class ViewController extends BaseController {
         if (!organization) {
             res.status(400).end('{"error" : orga parameter required !}');
         }
-
-        console.log("TEST");
-        console.log(req.cookies.token);
         traitementOrga(req.cookies.token, organization).then((response) => {
-            console.log(response);
+            orga.name = response.orgaInfos.data.organization.name;
+            orga.description = response.orgaInfos.data.organisation.description;
+            orga.location = response.orgaInfos.data.organization.location;
+            orga.avatarUrl = response.orgaInfos.data.organization.avatarUrl;
+            orga.repositoriesNumber = response.orgaInfos.data.organization.repositories.totalCount;
+            orga.projectsNumber = response.orgaInfos.data.organization.projects.totalCount;
+
+            user.name = response.orgaInfos.data.viewer.name;
+            user.username = response.orgaInfos.data.viewer.username;
+            user.avatarUrl = response.orgaInfos.data.viewer.avatarUrl;
 
             res.render('orgaInfos', {
-                title: 'Home'
+                title: 'Home',
+                username: user.username,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+                orgaName: orga.name,
+                repositoriesNumber: orga.repositoriesNumber,
+                projectsNumber: orga.projectsNumber
             });
-        }).catch(() => {
-            console.log('Error fetching elements');
-            res.redirect('/');
+        }).catch((err) => {
+            res.render('error', {
+                title: 'Error',
+                msg: `An error occurred when retrieving the organization's information`,
+            });
         });
     }
 

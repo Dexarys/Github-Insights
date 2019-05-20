@@ -1,0 +1,30 @@
+################################################
+# github-insights project deployment
+################################################
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: github-insights
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-insights
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: github-insights
+        tier: frontend
+    spec:
+      containers:
+        - name: front
+          image: "yfouillet/github-insights:latest"
+          env: 
+          - name: VAR_ADRESS
+            value: VAR_ADRESS_replace
+          - name: VAR_GITHUB_KEY
+            value: VAR_GITHUB_KEY_replace
+          - name: VAR_GITHUB_SECRET
+            value: VAR_GITHUB_SECRET_replace

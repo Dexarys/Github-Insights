@@ -16,6 +16,7 @@
     "apollo-boost": "^0.3.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.8.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "4.0.0",
     "expect": "22.1.0",

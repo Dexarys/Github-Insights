@@ -6,18 +6,23 @@
     <!-- Site wrapper -->
     <div class="wrapper">
 
-        <header class="main-header">
+        <header
+            class="main-header">
             <!-- Logo -->
-            <a href="/" class="logo">
+            <a
+                class="logo" href="/">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>G</b>Is</span>
+                <span class="logo-mini">
+                    <b>G</b>Is</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Github</b>Insights</span>
+                <span class="logo-lg">
+                    <b>Github</b>Insights</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
+            <nav
+                class="navbar navbar-static-top">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <a class="sidebar-toggle" data-toggle="push-menu" href="#" role="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -25,15 +30,17 @@
                 </a>
 
                 <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
+                    <ul
+                        class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <img src="{{ avatarUrl }}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ name }}</span>
 
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul
+                                class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="{{ avatarUrl }}" class="img-circle" alt="User Image">
@@ -67,121 +74,328 @@
         <!-- =============================================== -->
 
         <!-- Left side column. contains the sidebar -->
-        <aside class="main-sidebar">
+        <aside
+            class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+            <section
+                class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
                         <img src="{{ avatarUrl }}" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>{{ name }} </br> <a href="https://github.com/{{ username }}" target="_blank"> ({{ username }}) </a> </p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-            </section>
-        </aside>
-
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    My informations
-                </h1>
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-aqua"><i class="ion ion-android-settings"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Repositories</span>
-                                <span class="info-box-number">{{ repositoriesNumber }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-red"><i class="ion ion-android-folder"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Projects</span>
-                                <span class="info-box-number">{{ projectsNumber }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-green"><i class="ion ion-android-contact"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Followers</span>
-                                <span class="info-box-number">{{ followerNumber }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-orange"><i class="ion ion-android-contacts"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Following</span>
-                                <span class="info-box-number">{{ followingNumber }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
+                        <p>{{ name }}
+                            </br>
+                            <a href="https://github.com/{{ username }}" target="_blank">
+                                ({{ username }})
+                            </a>
+                        </p>
+                        <span><i class="ion ion-android-star"></i> {{ stars }} </span>
                     </div>
                 </div>
 
-                <!-- Default box -->
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Looking for organisation informations</h3>
+        </section>
+    </aside>
 
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fa fa-minus"></i></button>
+    <!-- Content Wrapper. Contains page content -->
+    <div
+        class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h2>
+                My informations
+            </h2>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua">
+                            <i class="ion ion-android-settings"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Repositories</span>
+                            <span class="info-box-number">{{ repositoriesNumber }}</span>
                         </div>
+                        <!-- /.info-box-content -->
                     </div>
-                    <div class="box-body">
-                        <form action="/traitementOrga">
-                            <input class="form-control" type="text" name="organization" id="inputOrga" placeholder="Organization" required>
-                            <button class="btn" type="submit">Submit</button>
-                        </form>
-                    </div>
-                    <!-- /.box-body -->
+                    <!-- /.info-box -->
                 </div>
-                <!-- /.box -->
 
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red">
+                            <i class="ion ion-android-folder"></i>
+                        </span>
 
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.0
+                        <div class="info-box-content">
+                            <span class="info-box-text">Projects</span>
+                            <span class="info-box-number">{{ projectsNumber }}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green">
+                            <i class="ion ion-android-contact"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Followers</span>
+                            <span class="info-box-number">{{ followerNumber }}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-orange">
+                            <i class="ion ion-android-contacts"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Following</span>
+                            <span class="info-box-number">{{ followingNumber }}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
             </div>
-            <strong>Copyright &copy; 2019 - EPSI</a>.</strong>
-        </footer>
 
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Looking for organisation informations</h3>
+
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-toggle="tooltip" data-widget="collapse" title="Collapse" type="button">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form action="/traitementOrga">
+                        <input class="form-control" id="inputOrga" name="organization" placeholder="Organization" required type="text">
+                        <br>
+                        <div class="row justify-content-center px-4">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4"><button class="btn btn-block btn-primary mx-4" type="submit">Display organisation stats</button></div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <section class="content">
+                        <div class="box justify-content-center">
+                            <h1>Repositories number by language</h1>
+                            <canvas id="languageChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+
+                    <section class="content">
+                        <div class="box justify-content-center">
+                            <h1>Repositories number by owner</h1>
+                            <canvas id="ownerChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+            <div>
+                <div>
+                    <section class="content">
+                        <div class="">
+                            <h1>Most stared repositories</h1>
+                            {% for repo in repositories|slice(0,5) %}
+                                <div class="box row">
+                                    <div>
+                                        <h4 class="col-md-11">{{ loop.index }} - {{ repo.name }}</h4>
+                                        <p>{{ repo.description }}</p>
+                                    </div>
+                                    <div>
+                                        <p>{{ repo.stargazers.totalCount }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </section>
+        <!-- /.content -->
     </div>
-    <!-- ./wrapper -->
-{% endblock %}
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b>
+            1.0.0
+        </div>
+        <strong>Copyright &copy; 2019 - EPSI</a>.</strong>
+</footer></div><script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script><script>
+var ctx = document.getElementById('languageChart').getContext('2d');
+
+var languageChart = new Chart(ctx, { // The type of chart we want to create
+    type: 'doughnut',
+
+    // The data for our dataset
+    data: {
+        labels: [{% for statsLanguageLabel in statsLanguageLabels %}'{{statsLanguageLabel}}',{% endfor %}],
+        datasets: [
+            {
+                label: 'My First dataset',
+                backgroundColor: [
+                    '#00B3E6',
+                    '#E6B333',
+                    '#3366E6',
+                    '#999966',
+                    '#99FF99',
+                    '#B34D4D',
+                    '#80B300',
+                    '#809900',
+                    '#E6B3B3',
+                    '#6680B3',
+                    '#66991A',
+                    '#FF99E6',
+                    '#CCFF1A',
+                    '#FF1A66',
+                    '#E6331A',
+                    '#33FFCC',
+                    '#66994D',
+                    '#B366CC',
+                    '#4D8000',
+                    '#B33300',
+                    '#CC80CC',
+                    '#66664D',
+                    '#991AFF',
+                    '#E666FF',
+                    '#4DB3FF',
+                    '#1AB399',
+                    '#E666B3',
+                    '#33991A',
+                    '#CC9999',
+                    '#B3B31A',
+                    '#00E680',
+                    '#4D8066',
+                    '#809980',
+                    '#E6FF80',
+                    '#1AFF33',
+                    '#999933',
+                    '#FF3380',
+                    '#CCCC00',
+                    '#66E64D',
+                    '#4D80CC',
+                    '#9900B3',
+                    '#E64D66',
+                    '#4DB380',
+                    '#FF4D4D',
+                    '#99E6E6',
+                    '#6666FF',
+                    '#FF6633',
+                    '#FFB399',
+                    '#FF33FF',
+                    '#FFFF99',
+                ],
+                borderColor: 'rgb(255, 255, 255)',
+                data: [{% for statsLanguage in statsLanguages %}'{{statsLanguage}}',{% endfor %}]
+            }
+        ]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+ctx = document.getElementById('ownerChart').getContext('2d');
+
+var languageChart = new Chart(ctx, { // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: [{% for statsOwnerLabel in statsOwnerLabels %}'{{statsOwnerLabel}}',{% endfor %}],
+        datasets: [
+            {
+                label: 'My First dataset',
+                backgroundColor: [
+                    '#00B3E6',
+                    '#E6B333',
+                    '#3366E6',
+                    '#999966',
+                    '#99FF99',
+                    '#B34D4D',
+                    '#80B300',
+                    '#809900',
+                    '#E6B3B3',
+                    '#6680B3',
+                    '#66991A',
+                    '#FF99E6',
+                    '#CCFF1A',
+                    '#FF1A66',
+                    '#E6331A',
+                    '#33FFCC',
+                    '#66994D',
+                    '#B366CC',
+                    '#4D8000',
+                    '#B33300',
+                    '#CC80CC',
+                    '#66664D',
+                    '#991AFF',
+                    '#E666FF',
+                    '#4DB3FF',
+                    '#1AB399',
+                    '#E666B3',
+                    '#33991A',
+                    '#CC9999',
+                    '#B3B31A',
+                    '#00E680',
+                    '#4D8066',
+                    '#809980',
+                    '#E6FF80',
+                    '#1AFF33',
+                    '#999933',
+                    '#FF3380',
+                    '#CCCC00',
+                    '#66E64D',
+                    '#4D80CC',
+                    '#9900B3',
+                    '#E64D66',
+                    '#4DB380',
+                    '#FF4D4D',
+                    '#99E6E6',
+                    '#6666FF',
+                    '#FF6633',
+                    '#FFB399',
+                    '#FF33FF',
+                    '#FFFF99',
+                ],
+                borderColor: 'rgb(255, 255, 255)',
+                data: [{% for statsOwner in statsOwners %}'{{statsOwner}}',{% endfor %}]
+            }
+        ]
+    },
+
+    // Configuration options go here
+    options: {}
+});</script>{% endblock %}

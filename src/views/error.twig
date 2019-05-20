@@ -1,0 +1,57 @@
+{% extends '/template/base.twig' %}
+
+
+{% block body %}
+
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <header
+                class="main-header">
+            <!-- Logo -->
+            <a
+                    class="logo" href="/">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">
+                    <b>G</b>Is</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg">
+                    <b>Github</b>Insights</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+
+
+        </header>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div
+        class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h2>
+                Oops, something got wrong !
+            </h2>
+            <h3>{{ msg }}</h3>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box-tools">
+                <p>Comeback to the Home page</p>
+                <button type="button" class="btn btn-box-tool"><a href="/">Home</a></button>
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b>
+                1.0.0
+            </div>
+            <strong>Copyright &copy; 2019 - EPSI</a>.</strong>
+        </footer></div>
+{% endblock %}

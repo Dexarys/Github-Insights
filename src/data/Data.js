@@ -94,7 +94,7 @@ async function traitementUser(githubToken) {
             const QUERY = gql`
                 {
                     viewer {
-                        repositories(first: 100${repositoriesCursor !== '' ? `, after: "${repositoriesCursor}"` : ''}, isFork: false, isLocked: false) {
+                        repositories(first: 100${repositoriesCursor !== '' ? `, after: "${repositoriesCursor}"` : ''}, isFork: false, isLocked: false, orderBy: { field: STARGAZERS, direction: DESC }) {
                             edges {
                                 node {
                                     description
@@ -168,7 +168,6 @@ async function traitementOrga(githubToken, githubOrganization) {
     } catch(e) {
         console.error("Error while fetching element", JSON.stringify(e, undefined, 2));
     }
-    console.log(`Number of members: ${members.length}`);
 
     let membersInError = [];
     let getOrganizationRepositories = makeGetRepositories('organization');
