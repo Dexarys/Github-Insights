@@ -193,21 +193,6 @@ async function traitementOrga(githubToken, githubOrganization) {
         {
           organization(login: "${githubOrganization}") {
             name
-            description
-            avatarUrl
-            location
-            repositories {
-                totalCount
-            }
-            projects {
-                totalCount
-            }
-          }
-          viewer {
-            name
-            avatarUrl
-            login
-          }
         }
         `;
 
