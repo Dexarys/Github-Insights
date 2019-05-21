@@ -116,6 +116,7 @@ async function traitementUser(githubToken) {
                     }
                 }
                 `;
+                
 
             const response = await client.query({
                 query: QUERY,
@@ -163,6 +164,8 @@ async function traitementOrga(githubToken, githubOrganization) {
     let members;
     let memberRepositories;
 
+    console.log(orgaInfos);
+
     try {
         members = await getMembers();
     } catch(e) {
@@ -188,11 +191,24 @@ async function traitementOrga(githubToken, githubOrganization) {
 
 
     async function getOrgaInfos() {
+
         const QUERY = gql`
-        {
-          organization(login: "${githubOrganization}") {
-            name
-        }
+            {
+                viewer {
+                    organization(login: "${githubOrganization}") {
+                        name
+                        description
+                        location
+                        avatarUrl
+                        projects {
+                            totalCount
+                        }
+                        repositories {
+                            totalCount
+                        }
+                    }
+                }
+            }
         `;
 
         return await client.query({

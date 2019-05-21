@@ -177,16 +177,16 @@ class ViewController extends BaseController {
             res.status(400).end('{"error" : orga parameter required !}');
         }
         traitementOrga(req.cookies.token, organization).then((response) => {
-            orga.name = response.orgaInfos.data.organization.name;
-            orga.description = response.orgaInfos.data.organisation.description;
-            orga.location = response.orgaInfos.data.organization.location;
-            orga.avatarUrl = response.orgaInfos.data.organization.avatarUrl;
-            orga.repositoriesNumber = response.orgaInfos.data.organization.repositories.totalCount;
-            orga.projectsNumber = response.orgaInfos.data.organization.projects.totalCount;
+            orga.name = response.orgaInfos.data.viewer.organization.name;
+            orga.description = response.orgaInfos.data.viewer.organization.description;
+            orga.location = response.orgaInfos.data.viewer.organization.location;
+            orga.avatarUrl = response.orgaInfos.data.viewer.organization.avatarUrl;
+            orga.repositoriesNumber = response.orgaInfos.data.viewer.organization.repositories.totalCount;
+            orga.projectsNumber = response.orgaInfos.data.viewer.organization.projects.totalCount;
 
-            user.name = response.orgaInfos.data.viewer.name;
-            user.username = response.orgaInfos.data.viewer.username;
-            user.avatarUrl = response.orgaInfos.data.viewer.avatarUrl;
+            user.name = response.orgaInfos.data.viewer.organization.name;
+            user.username = response.orgaInfos.data.viewer.organization.username;
+            user.avatarUrl = response.orgaInfos.data.viewer.organization.avatarUrl;
 
             res.render('orgaInfos', {
                 title: 'Home',
@@ -198,6 +198,7 @@ class ViewController extends BaseController {
                 projectsNumber: orga.projectsNumber
             });
         }).catch((err) => {
+            console.log(err);
             res.render('error', {
                 title: 'Error',
                 msg: `An error occurred when retrieving the organization's information`,
