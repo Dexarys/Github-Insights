@@ -19,10 +19,12 @@ Don't forget to install the dependencies :
 npm install
 ```
 
+Create your OAuth credential on Github.
+
 Next create a .env file with with the following content :
 
 ```
-adress="http://localhost:3000"
+adress="http://localhost:<PORT>"
 GITHUB_KEY="YOUR-GITHUB-OAUTH-KEY"
 GITHUB_SECRET="YOUR-GITHUB-OAUTH-SECRET-KEY"
 ```
@@ -39,7 +41,7 @@ With Docker :
 
 ```
 docker build . -t <container-name> 
-docker run 
+docker run -p 80:<PORT> -e VAR_ADRESS=<url> -e VAR_GITHUB_KEY=<YOUR-GITHUB-OAUTH-KEY> -e VAR_GITHUB_SECRET=<YOUR-GITHUB-OAUTH-SECRET-KEY> <container-name> 
 ```
 
 ## Examples
