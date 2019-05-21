@@ -46,6 +46,8 @@ docker run -p 80:<PORT> -e VAR_ADRESS=<url> -e VAR_GITHUB_KEY=<YOUR-GITHUB-OAUTH
 
 ## Examples
 
+![dashboard](https://github.com/Remanx/Github-Insights/raw/master/examples/dashboard.png)
+
 ## Licence
 
 This repository is under Beerware licence, more information into LICENCE file
